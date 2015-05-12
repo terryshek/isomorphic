@@ -23,6 +23,7 @@
     "lodash": "3.1.0",
     "node-jsx": "0.12.4",
     "react": "0.13.2",
+    "react-bootstrap": "^0.21.2",
     "react-router": "nicolashery/react-router#2e375e94033e1cab5ed5b922395a79e368bb1929",
     "serialize-javascript": "1.0.0",
     "superagent": "0.21.0",

@@ -1,9 +1,14 @@
 var React = require('react');
-
+var Jumbotron = require('react-bootstrap/lib/Jumbotron');
+var Button = require('react-bootstrap/lib/Button');
 var About = React.createClass({
   render: function() {
     return (
-      <h1>About</h1>
+        <Jumbotron>
+            <h1>Hello, world!</h1>
+            <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+            <p><Button bsStyle='primary'>Learn more</Button></p>
+        </Jumbotron>
     );
   }
 });
