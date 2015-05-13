@@ -22,7 +22,6 @@ var App = React.createClass({
                 <Nav bsStyle='pills' activeKey={1}>
                     <NavItem><Link to="about">About</Link></NavItem>
                     <NavItem><Link to="contacts">Contacts</Link></NavItem>
-                    <NavItem><Link to="bootstrap">bootstrap</Link></NavItem>
                 </Nav>
             </Navbar>
         </p>

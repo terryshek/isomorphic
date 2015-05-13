@@ -11,5 +11,7 @@ app.registerStore(require('./stores/ContactStore'));
 app.registerStore(require('./stores/CreateContactStore'));
 app.registerStore(require('./stores/MessageStore'));
 app.registerStore(require('./stores/FetchMessagesStore'));
+app.registerStore(require('./stores/AboutStore'));
+
 
 module.exports = app;

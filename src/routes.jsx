@@ -9,7 +9,6 @@ module.exports = (
     <Route name="signin" handler={require('./components/SignIn.jsx')}/>
     <Route name="about" handler={require('./components/About.jsx')}/>
     <Route name="contacts" handler={require('./components/ContactList.jsx')}/>
-    <Route name="bootstrap" handler={require('./components/reactbootstrap.jsx')}/>
     <Route name="contact-create" path="/contacts/create" handler={require('./components/CreateContact.jsx')}/>
     <Route name="contact-details" path="/contact/:id" handler={require('./components/ContactDetails.jsx')}/>
     <Route name="contact-messages" path="/contact/:id/messages" handler={require('./components/ContactMessages.jsx')}/>
