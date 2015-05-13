@@ -4,21 +4,19 @@ var Button = require('react-bootstrap/lib/Button');
 var Input = require('react-bootstrap/lib/Input');
 var AboutStore =require("../stores/AboutStore");
 var FluxibleMixin = require('fluxible/addons/FluxibleMixin');
+var aboutTask = require('../actions/aboutTask');
 
 var About = React.createClass({
-    getInitialState:function(){
-        return {
-            value: ''
-        };
-    },
+
+    mixins: [FluxibleMixin],
+
     getInitialState: function() {
         return this.getStateFromStores();
     },
     getStateFromStores: function () {
         return {
-            contact: this.getStore(AboutStore).getContact(this.getContactId()),
-            messages: this.getStore(AboutStore).getMessages(this.getContactId()),
-            loading: this.getStore(AboutStore).isLoadingMessages()
+            list: this.getStore(AboutStore).getCurrentList(),
+            value: ''
         };
     },
     validationState:function(){
@@ -34,6 +32,12 @@ var About = React.createClass({
         this.setState({
             value: this.refs.input.getValue()
         });
+    },
+    addTask:function(){
+        var list = this.state.list;
+        var element =this.state.value
+        list.push(element)
+        this.context.executeAction(aboutTask, {list:list});
     },
   render: function() {
     return (
@@ -54,12 +58,14 @@ var About = React.createClass({
                             onChange={this.handleChange}/>
                 </div>
                 <div className="col-xs-6 col-md-6">
-                    <Button bsStyle='info'>Add</Button>
+                    <Button bsStyle='info' onClick={this.addTask}>Add</Button>
                 </div>
             </div>
         </div>
     );
   }
 });
-
+About.contextTypes = {
+    executeAction: React.PropTypes.func.isRequired
+};
 module.exports = About;

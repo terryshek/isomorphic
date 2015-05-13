@@ -6,20 +6,15 @@ var createStore = require('fluxible/addons/createStore');
 var AboutStore = createStore({
     storeName: 'AboutStore',
     handlers: {
-        'ABOUT_SUCCESS': 'addTask'
-    },
-    mixins: [FluxibleMixin],
-    addTask:function(){
-
+        'ABOUT_SUCCESS': 'setItem'
     },
     initialize: function() {
-        this.list = [];
+        this.list = ['terry','tom','paul'];
     },
     setItem: function(payload) {
         this.list[payload.task] = payload.task;
         this.emitChange();
     },
-
     getItem: function(task) {
         return this.list[task] || [];
     },
