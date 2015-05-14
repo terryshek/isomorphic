@@ -1,8 +1,8 @@
 
 module.exports = function(context, payload, done) {
-    debug('Started');
+    console.log(payload);
     setTimeout(function () { // simulate async
-        context.dispatch('ABOUT_SUCCESS', payload);
+        context.dispatch('ADDTASK_SUCCESS', payload);
         done();
     }, 10);
 };

@@ -7,18 +7,28 @@ var FluxibleMixin = require('fluxible/addons/FluxibleMixin');
 var aboutTask = require('../actions/aboutTask');
 
 var About = React.createClass({
+    contextTypes: {
+        router: React.PropTypes.func.isRequired
+    },
 
     mixins: [FluxibleMixin],
 
+    statics: {
+        storeListeners: [AboutStore]
+    },
+
     getInitialState: function() {
+        console.log(this.getStateFromStores())
         return this.getStateFromStores();
     },
+
     getStateFromStores: function () {
         return {
             list: this.getStore(AboutStore).getCurrentList(),
             value: ''
         };
     },
+
     validationState:function(){
         var length = this.state.value.length;
         if (length > 10) { return 'success'; }
@@ -26,19 +36,15 @@ var About = React.createClass({
         else if (length > 0) { return 'error'; }
     },
 
-    handleChange:function(){
-        // This could also be done using ReactLink:
-        // http://facebook.github.io/react/docs/two-way-binding-helpers.html
-        this.setState({
-            value: this.refs.input.getValue()
-        });
+    onChange: function() {
+        this.setState(this.getStateFromStores());
     },
+
     addTask:function(){
-        var list = this.state.list;
-        var element =this.state.value
-        list.push(element)
-        this.context.executeAction(aboutTask, {list:list});
+        var task = this.refs.input.getValue();
+        this.context.executeAction(aboutTask, {task:task});
     },
+
   render: function() {
     return (
         <div className="container">
@@ -46,7 +52,6 @@ var About = React.createClass({
                 <div className="col-xs-12 col-md-6">
                         <Input
                             type='text'
-                            value={this.state.value}
                             placeholder='Enter text'
                             help='Validation is based on string length.'
                             bsStyle={this.validationState()}
@@ -55,17 +60,21 @@ var About = React.createClass({
                             groupClassName='group-class'
                             wrapperClassName='wrapper-class'
                             labelClassName='label-class'
-                            onChange={this.handleChange}/>
+                            />
                 </div>
                 <div className="col-xs-6 col-md-6">
                     <Button bsStyle='info' onClick={this.addTask}>Add</Button>
                 </div>
+                <table className="table">
+                    <tr>
+                        <th>index</th>
+                        <th>taskName</th>
+                    </tr>
+                </table>
             </div>
         </div>
     );
   }
 });
-About.contextTypes = {
-    executeAction: React.PropTypes.func.isRequired
-};
+
 module.exports = About;

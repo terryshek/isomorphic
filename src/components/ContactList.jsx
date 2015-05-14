@@ -29,7 +29,7 @@ var ContactList = React.createClass({
 
   getStateFromStores: function () {
     return {
-      contacts: this.getStore(ContactStore).getContacts(),
+      contacts: this.getStore(ContactStore).getContacts()
     };
   },
 
