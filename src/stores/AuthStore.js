@@ -81,6 +81,7 @@ var AuthStore = createStore({
   },
 
   dehydrate: function() {
+    console.log('dehydrate')
     return {
       token: this.token,
       signingIn: this.signingIn,
@@ -90,6 +91,7 @@ var AuthStore = createStore({
   },
 
   rehydrate: function(state) {
+    console.log(state)
     this.token = state.token;
     this.signingIn = state.signingIn;
     this.signingOut = state.signingOut;

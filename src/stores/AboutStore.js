@@ -30,8 +30,8 @@ var AboutStore = createStore({
             list: this.list
         };
     },
-
     rehydrate: function(state) {
+        console.log("state")
         this.list = state.list;
     }
 })
