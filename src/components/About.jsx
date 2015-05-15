@@ -18,7 +18,6 @@ var About = React.createClass({
     },
 
     getInitialState: function() {
-        console.log(this.getStateFromStores())
         return this.getStateFromStores();
     },
 
@@ -29,47 +28,53 @@ var About = React.createClass({
         };
     },
 
-    validationState:function(){
-        var length = this.state.value.length;
-        if (length > 10) { return 'success'; }
-        else if (length > 5) { return 'warning'; }
-        else if (length > 0) { return 'error'; }
-    },
-
     onChange: function() {
         this.setState(this.getStateFromStores());
     },
 
-    addTask:function(){
-        var task = this.refs.input.getValue();
+    addTask:function(e){
+        e.preventDefault();
+        var task =  this.state.value;
         this.context.executeAction(aboutTask, {task:task});
     },
+    renderItem:function(){
 
+        var item = this.state.list.map(function(task,index){
+            console.log("render")
+            return(
+                <tr>
+                    <td>{index}</td>
+                    <td>{task}</td>
+                </tr>
+            )
+        })
+        return item
+
+        //console.log(React.findDOMNode(this.refs.input))
+    },
+    handleChange:function(e){
+        this.setState({value:e.target.value})
+    },
   render: function() {
+
     return (
         <div className="container">
             <div className="row">
-                <div className="col-xs-12 col-md-6">
-                        <Input
-                            type='text'
-                            placeholder='Enter text'
-                            help='Validation is based on string length.'
-                            bsStyle={this.validationState()}
-                            hasFeedback
-                            ref='input'
-                            groupClassName='group-class'
-                            wrapperClassName='wrapper-class'
-                            labelClassName='label-class'
-                            />
-                </div>
-                <div className="col-xs-6 col-md-6">
-                    <Button bsStyle='info' onClick={this.addTask}>Add</Button>
-                </div>
+                <form className="form-inline" onSubmit={this.addTask}>
+                    <div className="form-group tooltips">
+                        <input className="form-control" id="exampleInputName2" onChange={this.handleChange} placeholder="Jane Doe"/>
+                        <span>Tooltip</span>
+                    </div>
+                    <input type="submit" value="Go" className="btn btn-default"/>
+                    </form>
                 <table className="table">
                     <tr>
                         <th>index</th>
                         <th>taskName</th>
                     </tr>
+                    <tbody>
+                        {this.renderItem()}
+                    </tbody>
                 </table>
             </div>
         </div>

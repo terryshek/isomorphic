@@ -12,12 +12,12 @@ var AboutStore = createStore({
     },
 
     initialize: function() {
-        this.list = ['terry','tom','paul'];
+        this.list = [];
     },
 
     setItem: function(payload) {
-        this.list[payload.task] = payload.task;
-
+        console.log(payload)
+        this.list.push(payload.task);
         this.emitChange();
     },
 
