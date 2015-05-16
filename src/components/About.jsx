@@ -5,29 +5,6 @@ var Input = require('react-bootstrap/lib/Input');
 var AboutStore =require("../stores/AboutStore");
 var FluxibleMixin = require('fluxible/addons/FluxibleMixin');
 var aboutTask = require('../actions/aboutTask');
-var item =  React.createClass({
-
-    getDefaultProps:function(){
-        return{
-            results:["terry","apple","orange"]
-        }
-    },
-    getInitialState:function(){
-        console.log(this.props.results)
-    },
-    render:function(){
-        console.log("run")
-        return(
-                <div className="row">
-                    <div className="col-md-4">terry</div>
-                    <div className="col-md-4">addd</div>
-                    <div className="col-md-4 btn btn-danger btn-sm" role="button" onClick={this.prop.handleClick}
-                         key={index}>Delete
-                    </div>
-                </div>
-        )
-    }
-});
 var About = React.createClass({
     contextTypes: {
         router: React.PropTypes.func.isRequired
@@ -49,7 +26,6 @@ var About = React.createClass({
             value: ''
         };
     },
-
     onChange: function() {
         this.setState(this.getStateFromStores());
     },
@@ -59,15 +35,24 @@ var About = React.createClass({
         var task =  this.state.value;
         this.context.executeAction(aboutTask, {task:task});
     },
-    handleClick: function(e) {
-        e.preventDefault();
-        var task =  e.target.key;
-        console.log(task)
+    handlerOnClick: function(e) {
+        console.log(e)
     },
     handleChange:function(e){
         this.setState({value:e.target.value})
     },
     render: function() {
+        var commentNodes = this.state.list.map(function (task, index) {
+            return (
+                <tr>
+                    <td>{index+1}</td>
+                    <td>{task}</td>
+                    <td>
+                        <div onClick={this.handlerOnClick} className="btn-danger btn-sm" role="button" id={"task_"+index} onclick={this.handleClick}><span className="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete</div>
+                    </td>
+                </tr>
+            );
+        });
         return (
             <div className="container">
                 <div className="row">
@@ -79,12 +64,16 @@ var About = React.createClass({
                         <input type="submit" value="Go" className="btn btn-default"/>
                     </form>
                 </div>
-                <div className="row">
-                    <div className="col-md-4">index</div>
-                    <div className="col-md-4">Task</div>
-                    <div className="col-md-4">Action</div>
-                </div>
-                <item handleClick={this.handleClick}/>
+                <table className="table table-hover">
+                    <thead>
+                       <td>index</td>
+                       <td>Task</td>
+                       <td>Action</td>
+                   </thead>
+                    <tbody>
+                        {commentNodes}
+                    </tbody>
+                </table>
             </div>
         );
       }
