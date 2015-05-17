@@ -35,7 +35,7 @@ var About = React.createClass({
         var task =  this.state.value;
         this.context.executeAction(aboutTask, {task:task});
     },
-    handlerOnClick: function(e) {
+    _onDestroyClick: function(e) {
         console.log(e)
     },
     handleChange:function(e){
@@ -48,7 +48,7 @@ var About = React.createClass({
                     <td>{index+1}</td>
                     <td>{task}</td>
                     <td>
-                        <div onClick={this.handlerOnClick} className="btn-danger btn-sm" role="button" id={"task_"+index} onclick={this.handleClick}><span className="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete</div>
+                        <button onClick={this._onDestroyClick} className="btn-danger btn-sm" id={"task_"+index} ><span className="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete</button>
                     </td>
                 </tr>
             );
@@ -71,7 +71,18 @@ var About = React.createClass({
                        <td>Action</td>
                    </thead>
                     <tbody>
-                        {commentNodes}
+                        {this.state.list.map(function (task, index) {
+                            return (
+                                <tr>
+                                    <td>{index+1}</td>
+                                    <td>{task}</td>
+                                    <td>
+                                        <button onClick={this._onDestroyClick} className="btn-danger btn-sm" id={"task_"+index} ><span className="glyphicon glyphicon-trash" aria-hidden="true"></span>Delete</button>
+                                    </td>
+                                </tr>
+                                )
+                            })
+                        }
                     </tbody>
                 </table>
             </div>
